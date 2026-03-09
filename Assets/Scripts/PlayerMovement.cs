@@ -11,7 +11,8 @@ public class PlayerMovement : MonoBehaviour
     [System.Serializable]
     public struct Stats
     {
-       
+        [Tooltip("Players health points.")]
+        public int health;
         
         [Tooltip("How fast the player runs.")]
         public float speed;

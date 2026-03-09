@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GetHit : MonoBehaviour
 {
@@ -60,9 +61,17 @@ public class GetHit : MonoBehaviour
     private void TakeDamage()
     {
         hurt = true;
+        playerMovementScript.playerStats.health--;
         playerMovementScript.playerStats.canMove = false;
         playerMovementScript.soundManager.PlayHitSound();
         StartCoroutine("Recover");
+        
+        Debug.Log("Player health =  " + playerMovementScript.playerStats.health);
+
+        if (playerMovementScript.playerStats.health <= 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
     private IEnumerator Recover()
     {

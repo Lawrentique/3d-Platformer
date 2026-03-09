@@ -43,7 +43,7 @@ public class ExplodeEnemy : MonoBehaviour
     private void Update()
     {
         //Check to see how close the player is to the enemy
-        if (Vector3.Distance(transform.position, playerTransform.position) > enemyStats.explodeDist)
+        if (Vector3.Distance(transform.position, playerTransform.position) <= enemyStats.explodeDist)
         {
             //Explode if player is within range
             StartCoroutine("Explode");
@@ -54,7 +54,8 @@ public class ExplodeEnemy : MonoBehaviour
     private IEnumerator Explode()
     {
         Instantiate(enemyExplosionParticles, transform.position, Quaternion.identity);
-
+        enemyStats.explodeDist = 0; //Particle instantiating distance set to 0. Prevents instantiating every tick
+        
         yield return new WaitForSeconds(0.2f);
 
         Destroy(transform.parent.gameObject);
